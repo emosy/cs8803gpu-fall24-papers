@@ -75,3 +75,31 @@ the number of blocks and warps that can live on the SM at once is dependent on t
 including software-imposed requirements such as
 the number of registers per thread and amount of shared memory per block
 and hardware-imposed limits such as the maximum number of blocks per SM and the amount of shared memory available on the SM.
+
+
+// General-Purpose
+// Graphics Processor Architectures
+
+// chapter 1
+// introduction
+
+GPUs can be much more energy efficient and faster than CPUs,
+which is necessary as Dennard Scaling and Moore's Law come to an end.
+Modern GPUs are Turing complete and very capable for general-purpose computation.
+
+A modern GPU is usually controlled by a CPU which handles memory and coordination of the GPU.
+With virtual memory, the memory allocation and copying process can be abstracted away from the programmer.
+// chapter 3
+// The SIMT Core: Instruction
+// and Register Data Flow
+
+
+SIMT stack
+branches is hard
+
+SIMT deadlock
+
+warp scheduling
+
+i don't understand the one, two, three loop approximation
+or the hazards.
