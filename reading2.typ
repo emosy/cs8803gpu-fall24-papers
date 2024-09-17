@@ -11,12 +11,12 @@ Paper reading assignment 2
 
 The paper generalizes and summarizes learnings from hundreds of different articles across years of
 GPU programming research.
+I believe it is very useful as a reference for identifying which techniques need to be applied, when and why to apply them, and how to apply them.
 
-Some key takeaways are:
-ILP (instruction-level parallelism) is underappreciated in the literature.
+The most interesting takeaway I noticed was that ILP (instruction-level parallelism) is underappreciated in the literature.
 For example, an emphasis on occupancy means that TLP (thread-level parallelism) is more easily
 measured and is prioritized in optimizations.
-Look at Volkov's model.
+// Look at Volkov's model.
 
 Optimizations are presented in four themes:
 - Memory Access
@@ -30,9 +30,25 @@ Optimizations are presented in four themes:
   - Synchronization-related Balancing
 - Host Interaction
 
-Memory access is the most important since it's usually much slower than computation
+// Memory access is the most important since it's usually much slower than computation
 
 Themes are not categories and optimizations usually apply to multiple themes.
+
+When considering the realm of optimization techniques to apply, the authors suggest a high-level process to follow:
+1. Application-specific: Consider optimizations that address specifics of the application
+  - Whole-application vs kernel-specific optimizations: "It is often more useful to optimize the pipeline of kernels"
+  - Are kernels compute or memory bound?
+  - Do kernels reuse data?
+  - Are kernels regular or irregular?
+2. Identify bottlenecks
+  - Memory Access
+    - Global memory bandwidth
+    - Latency
+  - Irregularity
+  - Balancing
+  - Host Interaction
+3. Architectural evolution: Consider the architecture's new features and changes
+4. Quantitative Performance Potential: Consider which optimizations to target based on their potential performance gains, although they are not totally comparable
 
 Here are some highlights of interesting optimizations from the themes:
 
