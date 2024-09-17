@@ -33,3 +33,26 @@ Optimizations are presented in four themes:
 Memory access is the most important since it's usually much slower than computation
 
 Themes are not categories and optimizations usually apply to multiple themes.
+
+Here are some highlights of interesting optimizations from the themes:
+
+== Memory Access
+=== On-Chip
+Using dedicated memories such as constant memory, texture memory (optimized for accesses with two-dimensional spatial locality, but which can be used in very clever ways such as reading packed string data), and shared memory (optimized for accesses within one block). 
+Shared memory can be used for multiple purposes such as reducing the cost of multiple memory accesses, passing values between threads within a block (introducing synchronization barriers), and reducing the cost of uncoalesced or irregular memory accesses.
+Shared memory usage introduces the problem of avoiding bank conflicts, but there are also techniques for this.
+
+
+=== Off-Chip
+Coalescing memory accesses is the second-most applied optimization.
+It involves memory requests from multiple threads to global memory being automatically combined into fewer requests to the memory system when possible. 
+The paper notes that although the set of rules for determining if coalescing is possible change with each GPU architecture, the general trend is that the rules are becoming more relaxed with newer architectures.
+
+There are multiple techniques documented to change data access patterns depending on the data layout such as reorganizing threads, tuning the thread block size, tiling, parallelizing differently, or using more advanced indexing such as a space-filling curve.
+If the data layout does not allow for enough optimization, then the data layout can be changed such as transpositions (row-major to column-major, etc.), adding padding, or changing data hierarchies (e.g., struct of arrays to array of structs).
+The data layout may also be changed during computation when the cost of changing the layout is low and the benefits of different layouts for different stages is high.
+
+To simulate the benefits of coalesced memory accesses, programmers can also manually do a coalesced load into shared memory which does not have the additional cost of multiple concurrent accesses (but which does have bank conflict constraints).
+
+
+
