@@ -54,5 +54,22 @@ The data layout may also be changed during computation when the cost of changing
 
 To simulate the benefits of coalesced memory accesses, programmers can also manually do a coalesced load into shared memory which does not have the additional cost of multiple concurrent accesses (but which does have bank conflict constraints).
 
+// == Irregularity
+// === Reducing Divergence
+// === Sparse Data Layouts
+
+== Balancing
+=== Balancing the Instruction Stream
+By assigning work to warps rather than to threads or blocks, the unique structure of warp execution can be leveraged to balance the instruction stream.
+This technique can be extended to warp specialization where different warps perform different workloads which can be combined via another warp.
+
+=== Parallelism-related Balancing
+A major technique involves varying the amount of work per thread or block.
+The major tradeoff comes from gaining more data reuse at the cost of greater resource usage (more registers and shared memory needed).
+The optimal amount of work per thread must be auto-tuned for each application.
+
+Auto-tuning is useful across many applications where there are variable parameters (e.g. thread block dimensions, work per thread, etc.).
+The search space for these dimensions must be explored by testing different configurations and measuring performance.
+Additional tuning dimensions can be added beyond what is normally considered such as the data layout (e.g. sparsity representation).
 
 
