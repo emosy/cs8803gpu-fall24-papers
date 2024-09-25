@@ -16,3 +16,5 @@ the techniques.
 
 I'm not sure how to summarize the 40 pages of Appendix A in 1 page, but I am very thankful that it was provided as a reference, and I will be keeping note of it for my future work
 and sharing it with others who need to perform CUDA optimizations.
+
+I apologize that I did not have enough time to provide a more detailed summary of the appendix as I had many demands which were more urgent and important (according to course staff) than this reading assignment.
