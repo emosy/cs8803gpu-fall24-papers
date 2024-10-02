@@ -16,3 +16,38 @@ Ryan Thomas Lynch \
 CS 8803 GPU \
 #datetime.today().display() \
 Paper reading assignment 4
+
+The paper proposes a technique called "Variable warp size."
+This means smaller warp sizes by default, but gang schedule
+multiple small warps together in the scheduler.
+
+
+Benefits:
+- Reduces warp divergence cost
+  - It's possible to split the large warps such that divergent
+    branches are assigned to different smaller warps.
+
+Hardware cost:
+- Much more wiring needed
+  - More warps in one SM
+    - This requires more resources which are allocated per warp.
+  - More warps to be handled by the scheduler
+  - More PCs (assuming one PC per warp)
+- More complex scheduling
+
+Relationship with cooperative thread group:
+
+Cost of supporting SIMT stacks:
+
+Weaknesses/follow-up ideas:
+- It's possible to have divergence such that smaller warps still
+  have the same divergence cost as larger warps.
+  - For example, if even thread indices perform one operation and
+    odd thread indices perform another operation, then the warp will
+    still have to perform both operations.
+  - This is opposed to a situation where the bottom half of a large warp
+    performs one operation and the top half performs another operation,
+    in which case the warp can be split into two smaller warps and each
+    can perform their own operation without having to perform the other
+    operation.
+- What kinds of divergent workloads are modeled?
