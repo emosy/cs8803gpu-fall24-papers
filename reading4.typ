@@ -42,12 +42,26 @@ Benefits:
 
 
 Hardware cost:
-- Much more wiring needed
+- *Much* more wiring needed
   - More warps in one SM
     - This requires more resources which are allocated per warp.
   - More warps to be handled by the scheduler
   - More PCs (assuming one PC per warp)
+  - Each "slice" (small warp physical backing) has unique resources
+    to support the small warps.
+    - These must be duplicated per slice, leading to more resources
+      being used.
+    - These must also be disabled when small warps are ganged together,
+      leading to wasted space and dark silicon which contributes to
+      heat.
 - More complex scheduling
+  - An entire ganging unit must be added.
+  - Optimizing this unit in conjunction with the scheduler
+    is non-trivial.
+- Increased front end pressure and energy usage
+  - The number of instructions fetched per cycle drastically
+    increases with smaller warp size.
+  - This holds true across all application types.
 
 Relationship with cooperative thread group:
 
@@ -84,3 +98,24 @@ Weaknesses/follow-up ideas:
         applications with different warp size requirements.
       - This may also address the dark silicon heat issue if the
         disabled SMs can be literally powered off.
+
+Ultimately, I believe this may be a useful technique,
+just maybe not for today's needs.
+We've designed a lot of modern applications which drive the demand
+for GPUs (e.g. AI, maybe crypto again soon) around fundamental
+assumptions which rely on larger warps such as avoiding divergence
+and enabling memory coalescing.
+It appears that we've given up on power performance efficiency
+for the sake of performance, so in this current climate the extra
+power cost of smaller warp handling may be a drop in the bucket.
+
+The approach I described using heterogeneous SMs would require
+overprovisioning resources, which may not be the best use of more
+silicon space.
+Given that GPUs are getting larger and more performance-focused,
+throwing away some perfectly good traditional SMs in favor of
+some unproven smaller warp SMs may not be the best idea.
+I could see AMD or Intel trying this out if they attempt to target
+the middle end of the GPU market.
+But I just don't see a heterogeneous approach being useful for
+a flagship GPU intended for the highest value applications today.
