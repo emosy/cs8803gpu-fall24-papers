@@ -64,8 +64,27 @@ Hardware cost:
   - This holds true across all application types.
 
 Relationship with cooperative thread group:
+- Tiled thread groups may work well with this architecture.
+  - A tile may be composed of a variable number of
+    smaller warps.
+- However, larger tiles than the small warp size may
+  inherently cancel out some of the benefits of the
+  smaller warp size.
+
 
 Cost of supporting SIMT stacks:
+- The paper does not address how this design
+  change can greatly affect SIMT stacks.
+- More SIMT stacks that need to be managed together
+  may be difficult to manage from a compiler standpoint.
+- However, the size of the SIMT stack per warp should likely
+  be reduced assuming that fewer paths can be taken in a
+  smaller warp.
+  - If a warp only has 4 threads, then the maximum number
+    of paths that can be taken is 4.
+  - As opposed to a warp with 32 threads, which can have
+    32 different paths taken.
+
 
 Weaknesses/follow-up ideas:
 - It's possible to have divergence such that smaller warps still
@@ -79,6 +98,14 @@ Weaknesses/follow-up ideas:
     can perform their own operation without having to perform the other
     operation.
 - What kinds of divergent workloads are modeled?
+  - Are these copied from real-world applications
+    which were programmed and tuned to a different warp size?
+  - This means that the evaluation could be even more favorable
+    for this paper if divergent applications are retuned to
+    use smaller warps.
+  - However, this also means that applications must choose which
+    warp size to tune for, which leads to difficulty in distributing
+    the application to different hardware.
 - What if an application has a mixture of divergent and convergent
   workloads?
 - By specializing the warp size in the hardware, the architecture
