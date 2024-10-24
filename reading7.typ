@@ -19,3 +19,8 @@ Ryan Thomas Lynch \
 CS 8803 GPU \
 #datetime.today().display() \
 Paper reading assignment 7
+
+I chose the paper "Scalable GPU Graph Traversal".
+This paper focuses on a breadth-first search (BFS) implementation
+to parallelize BFS better on GPUs while maintaining asymptotically
+optimal performance.
