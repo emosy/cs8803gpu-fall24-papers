@@ -36,6 +36,19 @@ of operation.
 
 = Strengths
 
+I believe the paper does a good job of generalizing over many applications
+to find trends common across almost all AI research but which are not so
+general as to be indecipherable.
+
+For example, generalizing how the fall of GEMM-based computation and its
+replacement with less apparently parallelizable techniques is useful for
+researchers and novices.
+They propose to move away from using arithmetic intensity (AMI) as the
+main barometer for a program's expected performance characteristics.
+I think this will be very helpful for breaking out of a research rut
+that we have gotten ourselves into by extending prior work where AMI
+provided incredible value.
+
 = Weaknesses
 
 Contrasting this paper with the 80-page beast that is "Optimization
@@ -97,3 +110,6 @@ accelerator hardware, I believe there is much to be explored in the area of
 heterogeneous AI accelerators that don't look just like a GPU.
 For example, more open research into Amazon's Trainium architecture would be
 an area I would seek to foster.
+I now see that there is a paper from 2022 which probably does something close
+to this called "A survey on machine learning accelerators and evolutionary
+hardware platforms", which I need to add to my reading list.
